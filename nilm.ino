@@ -1,16 +1,29 @@
+
+int greenLed  = 8;
+int redLed    = 9;
+int yellowLed = 10;
+int interruptPin = 2;
+
+void blink() {
+  int x = 0;
+  digitalWrite(yellowLed,HIGH);
+  for (int i=1;i<1000;i++)x++;
+  digitalWrite(yellowLed,LOW);
+}
+
 void setup() {
-  pinMode(8, OUTPUT);
-  pinMode(9, OUTPUT);
-  pinMode(10, OUTPUT);
+  pinMode(greenLed, OUTPUT);
+  pinMode(redLed, OUTPUT);
+  pinMode(yellowLed, OUTPUT);
+  pinMode(interruptPin, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(interruptPin), blink, CHANGE);
+  digitalWrite(greenLed, HIGH); 
 }
 
 
 void loop() {
-  sensorValue = analogRead(sensorPin);
-  digitalWrite(ledPin, HIGH); 
-  digitalWrite(shadowPin, HIGH);  
-  delay(10);                     
-  digitalWrite(ledPin, LOW); 
-  digitalWrite(shadowPin, LOW);   
-  delay(sensorValue*10);                 
+  //digitalWrite(redLed,HIGH);
+  delay(500);
+  //digitalWrite(redLed,LOW); 
+  delay(500);                
 }

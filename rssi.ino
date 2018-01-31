@@ -13,40 +13,6 @@ int led3 = 14;
 int led4 = 12;
 int led5 = 13;
 
-void setup() {
-  pinMode(led1,OUTPUT);
-  pinMode(led2,OUTPUT);
-  pinMode(led3,OUTPUT);
-  pinMode(led4,OUTPUT);
-  pinMode(led5,OUTPUT);
-  Serial.begin(115200);
-  
-  WiFi.begin(ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-  }
-      digitalWrite(led1,HIGH);
-      delay(300);
-      digitalWrite(led1,LOW);
-      delay(300);
-      digitalWrite(led2,HIGH);
-      delay(300);
-      digitalWrite(led2,LOW);
-      delay(300);
-      digitalWrite(led3,HIGH);
-      delay(300);
-      digitalWrite(led3,LOW);
-      delay(300);
-      digitalWrite(led4,HIGH);
-      delay(300);
-      digitalWrite(led4,LOW);
-      delay(300);
-      digitalWrite(led5,HIGH);
-      delay(300);
-      digitalWrite(led5,LOW);
-}
-
 void ledOn(int led)
 {
    digitalWrite(led1,LOW);
@@ -71,12 +37,43 @@ void ledOn(int led)
    }
 }
 
+void setup() {
+  pinMode(led1,OUTPUT);
+  pinMode(led2,OUTPUT);
+  pinMode(led3,OUTPUT);
+  pinMode(led4,OUTPUT);
+  pinMode(led5,OUTPUT);
+  Serial.begin(115200);
+  
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    ledOn(5);
+    delay(300);
+    ledOn(4);
+  }
+
+}
+
+
+
 void loop() {
 
     long rssi = WiFi.RSSI();
     
     Serial.print("RSSI: ");
     Serial.println(rssi); 
+
+    if(rssi == 31) 
+    {
+        while (WiFi.status() != WL_CONNECTED) {
+          delay(500);
+          ledOn(5);
+          delay(300);
+          ledOn(4);
+       }
+    }
 
     if(rssi > -30) 
     {

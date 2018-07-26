@@ -12,6 +12,15 @@ void setup()
 {
   //Ethernet.begin(mac, ip);
   Serial.begin(9600);
+  pinMode(5,OUTPUT);
+  pinMode(6,OUTPUT);
+  pinMode(7,OUTPUT);
+  pinMode(8,OUTPUT);
+  
+  digitalWrite(5,LOW);
+  digitalWrite(6,LOW);
+  digitalWrite(7,LOW);
+  digitalWrite(8,LOW);
   
    // start the Ethernet connection:
   if (Ethernet.begin(mac) == 0) {
@@ -22,6 +31,7 @@ void setup()
   else
   {
     Serial.println("Ethernet connection started");
+    digitalWrite(7,HIGH);
   }
 
   delay(1000);
@@ -37,8 +47,10 @@ void loop()
     Serial.println("connected");
     client.println("GET /bot.txt HTTP/1.0");
     client.println();
+    digitalWrite(8,HIGH);
   } else {
     Serial.println("connection failed");
+       digitalWrite(8,HIGH);
   }
   
   delay(1000);
@@ -46,6 +58,7 @@ void loop()
   while (client.available()) {
     char c = client.read();
     Serial.print(c);
+    digitalWrite(8,HIGH);
   }
   
   delay(1000);
